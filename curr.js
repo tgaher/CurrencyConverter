@@ -2,11 +2,11 @@
 
 var tex=""
 
-function readapi(a,b)
+function readapi(a,b, done)
 {
     a= decipher(a);
     b= decipher(b);
-   var urlink ="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20csv%20where%20url%3D%22http%3A%2F%2Ffinance.yahoo.com%2Fd%2Fquotes.csv%3Fe%3D.csv%26f%3Dc4l1%26s%3D"+a+b+"%3DX%22%3B&format=json&diagnostics=true&callback=";
+    var urlink ="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20csv%20where%20url%3D%22http%3A%2F%2Ffinance.yahoo.com%2Fd%2Fquotes.csv%3Fe%3D.csv%26f%3Dc4l1%26s%3D"+a+b+"%3DX%22%3B&format=json&diagnostics=true&callback=";
 
     var doc = new XMLHttpRequest();
     doc.onreadystatechange=function()
@@ -15,7 +15,9 @@ function readapi(a,b)
         {
             tex = doc.responseText;
             var conversion = JSON.parse(tex);
-            return (conversion.query.results.row.col1);
+            console.log(conversion.query.results.row.col1);
+
+            if(done) done(parseInt(conversion.query.results.row.col1));
         }
 
     }

@@ -51,11 +51,9 @@ Rectangle
         text: "?"
         onClicked:
         {
-            var rate = Curr.readapi(inField.text , outField.text);
-            console.log(rate);
-            outField.text = rate
-            result.text = "result";
-
+            Curr.readapi(inField.text , outField.text, function(conversion) {
+                result.text = conversion;
+            });
         }
     }
 }
