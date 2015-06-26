@@ -51,8 +51,19 @@ Rectangle
         text: "?"
         onClicked:
         {
-            Curr.readapi(inField.text , outField.text, function(conversion) {
-                result.text = conversion;
+            Curr.readapi({
+                first: inField.text,
+                second: outField.text,
+
+                success: function(conversion) { // Anonymous function
+                    console.log("success");
+                    result.text = conversion;
+                },
+
+                error: function(errcode)
+                {
+                    console.log("error occured: " + errcode);
+                }
             });
         }
     }
